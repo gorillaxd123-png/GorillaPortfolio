@@ -17,54 +17,9 @@
             background-color: #08080c;
             color: #f3f4f6;
             overflow-x: hidden;
-            margin: 0;
-            padding: 0;
         }
 
-        /* Entry Screen Styles - Pre-animation covering page */
-        #entry-cover {
-            position: fixed;
-            inset: 0;
-            background-color: #111;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 1.5s ease-out, visibility 1.5s;
-        }
-
-        #entry-cover.blown-away {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        /* Large Leaf Pre-animation */
-        @keyframes coverLeaf {
-            0% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(5deg); }
-            100% { transform: scale(1) rotate(0deg); }
-        }
-        
-        .cover-leaf {
-            font-size: 15rem;
-            color: rgba(255, 255, 255, 0.1);
-            filter: blur(2px);
-            animation: coverLeaf 6s ease-in-out infinite;
-        }
-
-        /* Blown Away Animation */
-        @keyframes blowAway {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.1; filter: blur(2px); }
-            100% { transform: translate(150vw, -150vh) scale(0) rotate(720deg); opacity: 0; filter: blur(10px); }
-        }
-
-        .blown-away .cover-leaf {
-            animation: blowAway 1.5s ease-in forwards !important;
-        }
-
-        /* Entry Screen Styles (Original - modified to fade in portfolio) */
+        /* Entry Screen Styles */
         #entry-screen {
             position: fixed;
             inset: 0;
@@ -76,15 +31,9 @@
             justify-content: center;
             transition: opacity 0.8s ease-out, visibility 0.8s;
             cursor: pointer;
-            pointer-events: none; /* Initially non-clickable, cover handles it */
         }
 
-        /* Portfolio Reveal on Blow Away */
-        #entry-cover.blown-away + #entry-screen {
-            pointer-events: auto; /* Enable original entry screen after blow away */
-        }
-
-        /* Leaf Flying & Swinging Animation (Original) */
+        /* Leaf Flying & Swinging Animation */
         @keyframes leafFallAndSwing {
             0% {
                 transform: translateY(-100px) translateX(-50px) rotate(0deg);
@@ -127,7 +76,7 @@
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         .hover-lift:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px) scale(1.01);
             border-color: rgba(168, 85, 247, 0.4);
             box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.2);
         }
@@ -139,7 +88,7 @@
             background-size: 32px 32px;
         }
 
-        /* Fade-in Animation on Load (Original for main) */
+        /* Fade-in Animation on Load */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -155,17 +104,10 @@
         }
     </style>
 </head>
-<body class="grid-bg min-h-screen flex flex-col items-center justify-start relative">
+<body class="grid-bg min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 relative">
 
-    <!-- ENTRY COVER - Large Leaf and Pre-animation -->
-    <div id="entry-cover" onclick="blowLeavesAway()">
-        <div class="cover-leaf">
-            <i class="fa-solid fa-leaf"></i>
-        </div>
-    </div>
-
-    <!-- ENTRY SCREEN COVER (Original - simplified to just fade) -->
-    <div id="entry-screen">
+    <!-- ENTRY SCREEN COVER -->
+    <div id="entry-screen" onclick="enterWebsite()">
         <div class="leaf-animation mb-6">
             <i class="fa-solid fa-leaf"></i>
         </div>
@@ -230,14 +172,14 @@
             </audio>
         </div>
 
-        <!-- PORTFOLIO SHOWCASE COLUMN (Modified to Column and smaller) -->
+        <!-- PORTFOLIO SHOWCASE COLUMN (Large & Scaled Layout) -->
         <div class="p-6">
-            <h2 class="text-3xl font-extrabold text-white mb-8 tracking-tight glow-glow text-center sm:text-left">
+            <h2 class="text-3xl font-extrabold text-white mb-8 tracking-tight glow-glow text-center">
                 MY PORTFOLIO
             </h2>
-            <div class="flex flex-col items-center gap-6">
+            <div class="flex flex-col items-center gap-8 w-full">
                 <!-- Thumbnail Card 1 -->
-                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full max-w-sm sm:max-w-md">
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full">
                     <img src="https://media.discordapp.net/attachments/1503422943512891470/1528078368375963857/New_Video_Thumbnail.png?ex=6a5cfd61&is=6a5babe1&hm=40ea745ea4e67a956d3ca232ef9884852c2f81ad86ee4a7469911e13de7168b3&=&format=webp&quality=lossless&width=1536&height=864" 
                          alt="Thumbnail Work 1" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -248,7 +190,7 @@
                 </div>
 
                 <!-- Thumbnail Card 2 -->
-                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full max-w-sm sm:max-w-md">
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full">
                     <img src="https://media.discordapp.net/attachments/1503422943512891470/1528078385736323194/THE_MOST_POWERFULL_PLAYERS.png?ex=6a5cfd65&is=6a5babe5&hm=b0c2df716c70fb1612fc03f5be19c3dad99cb1c9b0ed8e67a8ff1e4ad9c790e0&=&format=webp&quality=lossless&width=1536&height=864" 
                          alt="Thumbnail Work 2" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -324,44 +266,16 @@
 
     <!-- INTERACTIVE SCRIPTS -->
     <script>
-        // Audio Elements & State References
+        // Audio Toggle Script
         const audio = document.getElementById('bg-music');
         const toggleBtn = document.getElementById('audio-toggle');
         const playIcon = document.getElementById('play-icon');
         const playText = document.getElementById('play-text');
         const trackName = document.getElementById('track-name');
-        const entryCover = document.getElementById('entry-cover');
-        const entryScreen = document.getElementById('entry-screen');
 
-        // Function triggered when the user clicks the initial cover page
-        function blowLeavesAway() {
-            entryCover.classList.add('blown-away');
-            
-            // Allow clicking original entry screen after animation finishes
-            setTimeout(() => {
-                entryScreen.style.pointerEvents = 'auto';
-                
-                // Transition to original entry screen look (if any extra steps were needed, they would go here)
-                // For this edit, original entry screen is just sitting behind.
-
-                // Pre-warm audio to try and allow autoplay on next gesture
-                // Browsers often require one intentional click for any media, which we now have.
-            }, 1500);
-        }
-
-        // Standard Manual Audio Toggle button configuration
-        toggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Stop parent trigger interactions
-            playAudioManual();
-        });
-
-        // Add a click handler to the entry screen to complete the entry process and start music
-        entryScreen.addEventListener('click', () => {
-            enterWebsite();
-        });
-
-        // Complete the entry process and start music
+        // Function triggered when the user clicks the entry landing screen
         function enterWebsite() {
+            const entryScreen = document.getElementById('entry-screen');
             entryScreen.style.opacity = '0';
             entryScreen.style.visibility = 'hidden';
             
@@ -376,7 +290,9 @@
             });
         }
 
-        function playAudioManual() {
+        // Standard Manual Audio Toggle button configuration
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Stop parent trigger interactions
             if (audio.paused) {
                 audio.play().then(() => {
                     playIcon.className = 'fa-solid fa-pause';
@@ -393,7 +309,7 @@
                 trackName.textContent = 'Audio paused';
                 trackName.classList.remove('text-purple-400');
             }
-        }
+        });
 
         // Copy Discord Username Script
         function copyDiscord() {
