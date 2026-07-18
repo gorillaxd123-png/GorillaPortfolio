@@ -19,6 +19,45 @@
             overflow-x: hidden;
         }
 
+        /* Entry Screen Styles */
+        #entry-screen {
+            position: fixed;
+            inset: 0;
+            background-color: #08080c;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+            cursor: pointer;
+        }
+
+        /* Leaf Flying & Swinging Animation */
+        @keyframes leafFallAndSwing {
+            0% {
+                transform: translateY(-100px) translateX(-50px) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(20px) translateX(60px) rotate(45deg);
+            }
+            100% {
+                transform: translateY(120px) translateX(-40px) rotate(-25deg);
+                opacity: 0;
+            }
+        }
+        
+        .leaf-animation {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.85);
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+            animation: leafFallAndSwing 4s ease-in-out infinite;
+        }
+
         /* Custom glow effect */
         .glow-glow {
             text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
@@ -66,6 +105,14 @@
     </style>
 </head>
 <body class="grid-bg min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 relative">
+
+    <!-- ENTRY SCREEN COVER -->
+    <div id="entry-screen" onclick="enterWebsite()">
+        <div class="leaf-animation mb-6">
+            <i class="fa-solid fa-leaf"></i>
+        </div>
+        <p class="text-zinc-400 font-medium tracking-widest text-xs uppercase animate-pulse">Click anywhere to enter</p>
+    </div>
 
     <!-- Background decorative ambient lights -->
     <div class="absolute top-[-10%] left-[5%] w-[300px] h-[300px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
@@ -219,14 +266,33 @@
 
     <!-- INTERACTIVE SCRIPTS -->
     <script>
-        // Audio Toggle Script
+        // Audio Elements & State References
         const audio = document.getElementById('bg-music');
         const toggleBtn = document.getElementById('audio-toggle');
         const playIcon = document.getElementById('play-icon');
         const playText = document.getElementById('play-text');
         const trackName = document.getElementById('track-name');
 
-        toggleBtn.addEventListener('click', () => {
+        // Function triggered when the user clicks the entry landing screen
+        function enterWebsite() {
+            const entryScreen = document.getElementById('entry-screen');
+            entryScreen.style.opacity = '0';
+            entryScreen.style.visibility = 'hidden';
+            
+            // Auto-triggering audio context upon intentional user entry gesture
+            audio.play().then(() => {
+                playIcon.className = 'fa-solid fa-pause';
+                playText.textContent = 'PAUSE';
+                trackName.textContent = 'Toad Factory - Mario Kart Wii';
+                trackName.classList.add('text-purple-400');
+            }).catch(e => {
+                trackName.textContent = 'Playback blocked or link expired';
+            });
+        }
+
+        // Standard Manual Audio Toggle button configuration
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Stop parent trigger interactions
             if (audio.paused) {
                 audio.play().then(() => {
                     playIcon.className = 'fa-solid fa-pause';
