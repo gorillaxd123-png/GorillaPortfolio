@@ -76,8 +76,7 @@
         
         <!-- Banner section -->
         <div class="w-full h-48 sm:h-64 relative bg-zinc-900 overflow-hidden">
-            <!-- Replace src with your active banner URL -->
-            <img src="https://discord.com/channels/1503422943013638164/1503422943512891470/1528077050383175811" 
+            <img src="https://media.discordapp.net/attachments/1503422943512891470/1528077050026393650/Youtube_Banner_2.png?ex=6a5cfc27&is=6a5baaa7&hm=db1fe290399a9264ee598380d39e608e593079a3eca06de2f774003105660bd8&=&format=webp&quality=lossless&width=1536&height=864" 
                  alt="Banner" 
                  class="w-full h-full object-cover opacity-80"
                  onerror="this.style.display='none'; this.parentNode.classList.add('bg-gradient-to-r', 'from-purple-900/40', 'to-zinc-900')">
@@ -88,9 +87,8 @@
         <div class="px-6 pb-6 relative flex flex-col items-center sm:items-start sm:flex-row gap-6 -mt-16">
             <!-- Avatar -->
             <div class="w-32 h-32 rounded-2xl overflow-hidden border-4 border-[#08080c] bg-zinc-800 shadow-2xl relative group shrink-0">
-                <!-- Replace src with your active PFP URL -->
-                <img src="https://discord.com/channels/1503422943013638164/1503422943512891470/1528076847131267103" 
-                     alt="gorillaxd133" 
+                <img src="https://media.discordapp.net/attachments/1503422943512891470/1528076846787199057/12121.png?ex=6a5cfbf6&is=6a5baa76&hm=dcee679e1f639c0394bf1b815320819abdfd4691c47d496da75c3d1c3aae7ced&=&format=webp&quality=lossless&width=1095&height=1020" 
+                 alt="gorillaxd133" 
                      class="w-full h-full object-cover"
                      onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=gorillaxd';">
             </div>
@@ -123,7 +121,7 @@
             </button>
             <!-- Background audio element -->
             <audio id="bg-music" loop>
-                <source src="https://discord.com/channels/1503422943013638164/1503422943512891470/1528076451872637089" type="audio/mpeg">
+                <source src="https://cdn.discordapp.com/attachments/1503422943512891470/1528076451402879036/Toad_Factory_Mario_Kart_Wii.mp3?ex=6a5cfb98&is=6a5baa18&hm=73898a731a25aa473e6fb817b131e38b88f6ac9461a55589afd01cfc665ab69a&" type="audio/mpeg">
             </audio>
         </div>
 
@@ -135,7 +133,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Thumbnail Card 1 -->
                 <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video">
-                    <img src="https://discord.com/channels/1503422943013638164/1503422943512891470/1528078368690667540" 
+                    <img src="https://media.discordapp.net/attachments/1503422943512891470/1528078368375963857/New_Video_Thumbnail.png?ex=6a5cfd61&is=6a5babe1&hm=40ea745ea4e67a956d3ca232ef9884852c2f81ad86ee4a7469911e13de7168b3&=&format=webp&quality=lossless&width=1536&height=864" 
                          alt="Thumbnail Work 1" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                          onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=60';">
@@ -146,7 +144,7 @@
 
                 <!-- Thumbnail Card 2 -->
                 <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video">
-                    <img src="https://discord.com/channels/1503422943013638164/1503422943512891470/1528078385790586941" 
+                    <img src="https://media.discordapp.net/attachments/1503422943512891470/1528078385736323194/THE_MOST_POWERFULL_PLAYERS.png?ex=6a5cfd65&is=6a5babe5&hm=b0c2df716c70fb1612fc03f5be19c3dad99cb1c9b0ed8e67a8ff1e4ad9c790e0&=&format=webp&quality=lossless&width=1536&height=864" 
                          alt="Thumbnail Work 2" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                          onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800&auto=format&fit=crop&q=60';">
@@ -233,10 +231,10 @@
                 audio.play().then(() => {
                     playIcon.className = 'fa-solid fa-pause';
                     playText.textContent = 'PAUSE';
-                    trackName.textContent = 'Background Mood Loop.mp3';
+                    trackName.textContent = 'Toad Factory - Mario Kart Wii';
                     trackName.classList.add('text-purple-400');
                 }).catch(e => {
-                    trackName.textContent = 'Playback error or link expired';
+                    trackName.textContent = 'Playback blocked or link expired';
                 });
             } else {
                 audio.pause();
