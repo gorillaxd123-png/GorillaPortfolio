@@ -58,6 +58,40 @@
             animation: leafFallAndSwing 4s ease-in-out infinite;
         }
 
+        /* Ambient White Background Leaves Animation */
+        @keyframes ambientLeaf {
+            0% {
+                transform: translateY(-5vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(105vh) translateX(30px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .ambient-leaf-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .ambient-leaf {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 1.2rem;
+            animation: ambientLeaf 12s linear infinite;
+            top: -5vh;
+        }
+
         /* Custom glow effect */
         .glow-glow {
             text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
@@ -69,6 +103,8 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            position: relative;
+            z-index: 10;
         }
 
         /* Smooth hover bounce/scale */
@@ -105,6 +141,22 @@
     </style>
 </head>
 <body class="grid-bg min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 relative">
+
+    <!-- BACKGROUND AMBIENT FALLING LEAVES -->
+    <div class="ambient-leaf-container">
+        <div class="ambient-leaf" style="left: 15%; animation-delay: 0s; animation-duration: 14s; font-size: 0.9rem;">
+            <i class="fa-solid fa-leaf"></i>
+        </div>
+        <div class="ambient-leaf" style="left: 45%; animation-delay: 3s; animation-duration: 18s; font-size: 1.3rem;">
+            <i class="fa-solid fa-leaf"></i>
+        </div>
+        <div class="ambient-leaf" style="left: 75%; animation-delay: 6s; animation-duration: 15s; font-size: 1rem;">
+            <i class="fa-solid fa-leaf"></i>
+        </div>
+        <div class="ambient-leaf" style="left: 88%; animation-delay: 9s; animation-duration: 20s; font-size: 1.1rem;">
+            <i class="fa-solid fa-leaf"></i>
+        </div>
+    </div>
 
     <!-- ENTRY SCREEN COVER -->
     <div id="entry-screen" onclick="enterWebsite()">
