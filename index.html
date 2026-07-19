@@ -97,6 +97,13 @@
             text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
         }
 
+        /* White Neon Glow effect for branding name */
+        .white-neon-glow {
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.8),
+                         0 0 12px rgba(255, 255, 255, 0.5),
+                         0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
         /* Glassmorphism styling */
         .glass-card {
             background: rgba(15, 15, 25, 0.6);
@@ -154,7 +161,7 @@
             transition: none !important;
         }
 
-        /* Hover Shine Effect for Thumbnail Cards */
+        /* Hover Shine Effect for Thumbnail Cards and PFP */
         .thumbnail-shine::after {
             content: '';
             position: absolute;
@@ -186,11 +193,11 @@
         .branding-text-shine {
             background: linear-gradient(
                 90deg,
-                #a1a1aa 0%,
-                #a1a1aa 35%,
+                #ffffff 0%,
+                #d4d4d8 35%,
                 #ffffff 50%,
-                #a1a1aa 65%,
-                #a1a1aa 100%
+                #d4d4d8 65%,
+                #ffffff 100%
             );
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -255,8 +262,8 @@
 
         <!-- Profile / Header block -->
         <div class="px-6 pb-6 relative flex flex-col items-center sm:items-start sm:flex-row gap-6 -mt-16">
-            <!-- Avatar -->
-            <div class="w-32 h-32 rounded-2xl overflow-hidden border-4 border-[#08080c] bg-zinc-800 shadow-2xl relative group shrink-0">
+            <!-- Avatar with Shine Effect matching the thumbnails -->
+            <div class="w-32 h-32 rounded-2xl overflow-hidden border-4 border-[#08080c] bg-zinc-800 shadow-2xl relative group shrink-0 thumbnail-shine cursor-pointer">
                 <img src="https://media.discordapp.net/attachments/1503422943512891470/1528076846787199057/12121.png?ex=6a5cfbf6&is=6a5baa76&hm=dcee679e1f639c0394bf1b815320819abdfd4691c47d496da75c3d1c3aae7ced&=&format=webp&quality=lossless&width=1095&height=1020" 
                      alt="gorillaxd133" 
                      class="w-full h-full object-cover"
@@ -295,10 +302,10 @@
             </audio>
         </div>
 
-        <!-- PORTFOLIO SHOWCASE COLUMN (Large & Scaled Layout) -->
+        <!-- PORTFOLIO SHOWCASE COLUMN -->
         <div class="p-6">
-            <h2 class="text-3xl font-extrabold text-white mb-2 tracking-tight glow-glow text-center">
-                MY PORTFOLIO
+            <h2 class="text-3xl font-extrabold text-white mb-2 tracking-tight glow-glow text-center uppercase">
+                SHOWCASE
             </h2>
             <p class="text-zinc-400 text-sm font-medium tracking-wide text-center mb-8">
                 The More You Scroll The More You Discover !
@@ -381,16 +388,29 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- GORILLA PRODUCTIONS BRANDING SECTION -->
-            <div class="w-full flex justify-center mt-12 mb-4">
-                <div class="relative inline-block select-none cursor-default group">
-                    <span id="branding-logo" class="branding-text-shine font-medium tracking-widest text-xs uppercase">
-                        Gorilla Productions
-                    </span>
-                    <!-- White Leaf absolute pinned to bottom-right of ending 's' character -->
-                    <i class="fa-solid fa-leaf text-white text-[9px] absolute -right-3.5 bottom-0.5 opacity-90 transition-transform duration-300 group-hover:scale-110"></i>
-                </div>
+        <!-- IMMERSIVE REVIEWS SECTION -->
+        <div class="p-6 border-t border-zinc-900/60 bg-zinc-950/10">
+            <h2 class="text-3xl font-extrabold text-white mb-6 tracking-tight glow-glow text-center uppercase">
+                REVIEWS
+            </h2>
+            <div class="w-full flex items-center justify-center p-8 rounded-xl bg-zinc-900/20 border border-zinc-800/40 backdrop-blur-sm min-h-[120px]">
+                <p class="text-zinc-500 font-medium tracking-widest text-xs uppercase animate-pulse">
+                    No Reviews Yet
+                </p>
+            </div>
+        </div>
+
+        <!-- END OF PAGE GORILLA PRODUCTIONS BRANDING -->
+        <div class="w-full flex justify-center mt-8 mb-8">
+            <div class="relative inline-block select-none cursor-default group">
+                <!-- Enlarged name size with White Neon Glow and text-shine rules -->
+                <span id="branding-logo" class="branding-text-shine white-neon-glow font-bold tracking-widest text-sm uppercase">
+                    Gorilla Productions
+                </span>
+                <!-- White Leaf absolute pinned to bottom-right of ending 's' character -->
+                <i class="fa-solid fa-leaf text-white text-[10px] absolute -right-4 bottom-0.5 opacity-90 transition-transform duration-300 group-hover:scale-110"></i>
             </div>
         </div>
 
