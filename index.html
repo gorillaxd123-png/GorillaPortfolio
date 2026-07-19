@@ -373,10 +373,10 @@
         </div>
     </main>
 
-    <!-- FULLSCREEN LIGHTBOX MODAL WITH ZOOM & PAN MECHANICS -->
+    <!-- FULLSCREEN LIGHTBOX MODAL WITH SMART ZOOM & PAN MECHANICS -->
     <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[10000] opacity-0 invisible flex items-center justify-center p-4 select-none overflow-hidden">
-        <!-- Close Button -->
-        <button class="absolute top-4 right-4 text-white/70 hover:text-white text-3xl p-2 transition-colors focus:outline-none z-50" onclick="closeLightbox()">
+        <!-- Close Button (X) -->
+        <button class="absolute top-4 right-4 text-white/70 hover:text-white text-3xl p-2 transition-colors focus:outline-none z-50 cursor-pointer" onclick="closeLightbox(event)">
             <i class="fa-solid fa-xmark"></i>
         </button>
         <!-- Large Image Elements -->
@@ -417,7 +417,8 @@
             resetZoom();
         }
 
-        function closeLightbox() {
+        function closeLightbox(event) {
+            if (event) event.stopPropagation(); // Stop click bubbling down to triggers
             lightbox.classList.remove('opacity-100');
             lightbox.classList.add('opacity-0');
             setTimeout(() => {
@@ -470,7 +471,7 @@
             if (isDragging) {
                 isDragging = false;
                 lightboxImg.classList.remove('dragging');
-                lightboxImg.style.cursor = 'grab';
+                lightboxImg.style.cursor = 'zoom-out';
                 return;
             }
 
@@ -479,7 +480,7 @@
                 isZoomed = !isZoomed;
                 if (isZoomed) {
                     lightboxImg.style.transform = 'scale(2.2)';
-                    lightboxImg.style.cursor = 'grab';
+                    lightboxImg.style.cursor = 'zoom-out';
                 } else {
                     resetZoom();
                 }
@@ -510,6 +511,16 @@
             if (isDragging) {
                 isDragging = false;
                 lightboxImg.classList.remove('dragging');
+                return;
+            }
+            // Simple Tap support to toggle zoom states safely on mobile layouts
+            if (!dragMoved && e.target === lightboxImg) {
+                isZoomed = !isZoomed;
+                if (isZoomed) {
+                    lightboxImg.style.transform = 'scale(2.2)';
+                } else {
+                    resetZoom();
+                }
             }
         });
 
