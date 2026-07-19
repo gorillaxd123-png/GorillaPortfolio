@@ -145,7 +145,7 @@
         }
         
         #lightbox-img {
-            transition: transform 0.1s ease-out;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
         }
 
@@ -374,13 +374,13 @@
     </main>
 
     <!-- FULLSCREEN LIGHTBOX MODAL WITH ZOOM & PAN MECHANICS -->
-    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[10000] opacity-0 invisible flex items-center justify-center p-4 select-none overflow-hidden">
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[10000] opacity-0 invisible flex items-center justify-center p-4 select-none overflow-hidden" onclick="closeLightbox(event)">
         <!-- Close Button (X) -->
         <button class="absolute top-4 right-4 text-white/70 hover:text-white text-3xl p-2 transition-colors focus:outline-none z-50 cursor-pointer" onclick="closeLightbox(event)">
             <i class="fa-solid fa-xmark"></i>
         </button>
         <!-- Large Image Elements -->
-        <img id="lightbox-img" src="" alt="Enlarged Portfolio View" class="max-w-full max-h-[88vh] rounded-lg object-contain shadow-2xl border border-zinc-800/40 cursor-grab origin-center">
+        <img id="lightbox-img" src="" alt="Enlarged Portfolio View" class="max-w-full max-h-[88vh] rounded-lg object-contain shadow-2xl border border-zinc-800/40 cursor-grab origin-center" onclick="handleImageClick(event)">
     </div>
 
     <!-- FOOTER -->
@@ -404,9 +404,11 @@
         // Zoom and Dragging Tracking Parameters
         let zoomScale = 1;
         const minScale = 1;
-        const maxScale = 5;
+        const maxScale = 4;
+        const clickZoomTarget = 2.5; // Custom scaling magnification when clicked
         
         let isDragging = false;
+        let hasDragged = false; // Tracks if cursor movement was actual panning vs a clean click selection
         let startX = 0, startY = 0;
         let currentX = 0, currentY = 0;
 
@@ -433,6 +435,7 @@
         function resetZoom() {
             zoomScale = 1;
             isDragging = false;
+            hasDragged = false;
             currentX = 0;
             currentY = 0;
             updateTransform();
@@ -443,7 +446,34 @@
             if (zoomScale > 1) {
                 lightboxImg.style.cursor = isDragging ? 'grabbing' : 'grab';
             } else {
-                lightboxImg.style.cursor = 'default';
+                lightboxImg.style.cursor = 'pointer';
+            }
+        }
+
+        // Left Click Handler: Zooms in/out when image is targeted directly
+        function handleImageClick(event) {
+            event.stopPropagation(); // Prevents clicking the image from running closeLightbox on the backdrop container
+            
+            // If the user was just dragging/panning the enlarged viewport around, ignore running a toggle click event
+            if (hasDragged) {
+                hasDragged = false;
+                return;
+            }
+
+            if (zoomScale > 1) {
+                // Instantly return image back to uniform center alignment scaling positions
+                resetZoom();
+            } else {
+                // Focus scale orientation coordinates toward modern mouse location vector calculations
+                zoomScale = clickZoomTarget;
+                const rect = lightboxImg.getBoundingClientRect();
+                const mouseX = event.clientX - (rect.left + rect.width / 2);
+                const mouseY = event.clientY - (rect.top + rect.height / 2);
+                
+                const factor = zoomScale - 1;
+                currentX = -mouseX * factor;
+                currentY = -mouseY * factor;
+                updateTransform();
             }
         }
 
@@ -486,17 +516,22 @@
 
         /* --- DESKTOP MOUSE DRAG LOGIC WHEN ZOOMED IN --- */
         lightboxImg.addEventListener('mousedown', (e) => {
-            if (zoomScale <= 1) return;
-            e.preventDefault();
+            // Allow clicking to trigger toggle if zoomScale is 1, otherwise let user drag when zoomed in
+            if (e.button !== 0) return; // Only process left click
             isDragging = true;
+            hasDragged = false;
             startX = e.clientX - currentX;
             startY = e.clientY - currentY;
             lightboxImg.classList.add('dragging');
-            updateTransform();
         });
 
         window.addEventListener('mousemove', (e) => {
-            if (!isDragging || zoomScale <= 1) return;
+            if (!isDragging) return;
+            // Introduce small threshold layout tolerance to distinguish micro movements from deliberate drag panning commands
+            if (Math.abs(e.clientX - (startX + currentX)) > 4 || Math.abs(e.clientY - (startY + currentY)) > 4) {
+                hasDragged = true;
+            }
+            if (zoomScale <= 1) return; // Prevent displacement movement adjustments if at flat system properties layout rules
             currentX = e.clientX - startX;
             currentY = e.clientY - startY;
             updateTransform();
