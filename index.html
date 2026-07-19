@@ -139,9 +139,19 @@
             animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Lightbox Modal Styles */
+        /* Lightbox Modal Styles & Smooth Zoom Panning */
         #lightbox-modal {
             transition: opacity 0.3s ease, visibility 0.3s;
+        }
+        
+        #lightbox-img {
+            transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: transform;
+        }
+
+        /* Class injected via Javascript during active dragging to bypass latency animations */
+        .dragging {
+            transition: none !important;
         }
     </style>
 </head>
@@ -363,14 +373,14 @@
         </div>
     </main>
 
-    <!-- FULLSCREEN LIGHTBOX MODAL -->
-    <div id="lightbox-modal" class="fixed inset-0 bg-black/90 z-[10000] opacity-0 visibility-hidden invisible flex items-center justify-center p-4 cursor-zoom-out" onclick="closeLightbox()">
+    <!-- FULLSCREEN LIGHTBOX MODAL WITH ZOOM & PAN MECHANICS -->
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[10000] opacity-0 invisible flex items-center justify-center p-4 select-none overflow-hidden">
         <!-- Close Button -->
-        <button class="absolute top-4 right-4 text-white/70 hover:text-white text-2xl p-2 transition-colors focus:outline-none" onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 text-white/70 hover:text-white text-3xl p-2 transition-colors focus:outline-none z-50" onclick="closeLightbox()">
             <i class="fa-solid fa-xmark"></i>
         </button>
-        <!-- Large Image -->
-        <img id="lightbox-img" src="" alt="Enlarged Portfolio View" class="max-w-full max-h-[85vh] rounded-lg object-contain shadow-2xl border border-zinc-800/40">
+        <!-- Large Image Elements -->
+        <img id="lightbox-img" src="" alt="Enlarged Portfolio View" class="max-w-full max-h-[88vh] rounded-lg object-contain shadow-2xl border border-zinc-800/40 cursor-zoom-in origin-center">
     </div>
 
     <!-- FOOTER -->
@@ -391,12 +401,20 @@
         const lightbox = document.getElementById('lightbox-modal');
         const lightboxImg = document.getElementById('lightbox-img');
 
+        // Zoom Tracking Parameters
+        let isZoomed = false;
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let currentX = 0, currentY = 0;
+        let dragMoved = false;
+
         function openLightbox(element) {
             const imgSrc = element.querySelector('img').src;
             lightboxImg.src = imgSrc;
             lightbox.classList.remove('invisible', 'opacity-0');
             lightbox.classList.add('opacity-100');
-            document.body.style.overflow = 'hidden'; // Stop page scrolling background
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+            resetZoom();
         }
 
         function closeLightbox() {
@@ -405,8 +423,95 @@
             setTimeout(() => {
                 lightbox.classList.add('invisible');
                 document.body.style.overflow = ''; // Re-enable background scrolling
+                resetZoom();
             }, 300);
         }
+
+        function resetZoom() {
+            isZoomed = false;
+            isDragging = false;
+            currentX = 0;
+            currentY = 0;
+            lightboxImg.style.transform = 'scale(1) translate(0px, 0px)';
+            lightboxImg.style.cursor = 'zoom-in';
+            lightboxImg.classList.remove('dragging');
+        }
+
+        // Close when user clicks purely on the dark background overlay wrapper
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        /* --- DESKTOP/MOUSE ZOOM AND DRAG LOGIC --- */
+        lightboxImg.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            startX = e.clientX - currentX;
+            startY = e.clientY - currentY;
+            dragMoved = false;
+            if (isZoomed) {
+                isDragging = true;
+                lightboxImg.classList.add('dragging');
+                lightboxImg.style.cursor = 'grabbing';
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging || !isZoomed) return;
+            dragMoved = true;
+            currentX = e.clientX - startX;
+            currentY = e.clientY - startY;
+            // Dividing translation coordinates by zoom factor to lock visual cursor position 1:1
+            lightboxImg.style.transform = `scale(2.2) translate(${currentX / 2.2}px, ${currentY / 2.2}px)`;
+        });
+
+        window.addEventListener('mouseup', (e) => {
+            if (isDragging) {
+                isDragging = false;
+                lightboxImg.classList.remove('dragging');
+                lightboxImg.style.cursor = 'grab';
+                return;
+            }
+
+            // Click Toggle Zoom Action (Executes if mouse didn't drag/pan structural threshold)
+            if (!dragMoved && e.target === lightboxImg) {
+                isZoomed = !isZoomed;
+                if (isZoomed) {
+                    lightboxImg.style.transform = 'scale(2.2)';
+                    lightboxImg.style.cursor = 'grab';
+                } else {
+                    resetZoom();
+                }
+            }
+        });
+
+        /* --- MOBILE TOUCH SUPPORT FOR PANNING AND TAP TO ZOOM --- */
+        lightboxImg.addEventListener('touchstart', (e) => {
+            if (!isZoomed) return; // Allow interaction parameters if natural aspect ratio
+            const touch = e.touches[0];
+            startX = touch.clientX - currentX;
+            startY = touch.clientY - currentY;
+            dragMoved = false;
+            isDragging = true;
+            lightboxImg.classList.add('dragging');
+        }, { passive: true });
+
+        lightboxImg.addEventListener('touchmove', (e) => {
+            if (!isDragging || !isZoomed) return;
+            dragMoved = true;
+            const touch = e.touches[0];
+            currentX = touch.clientX - startX;
+            currentY = touch.clientY - startY;
+            lightboxImg.style.transform = `scale(2.2) translate(${currentX / 2.2}px, ${currentY / 2.2}px)`;
+        }, { passive: true });
+
+        lightboxImg.addEventListener('touchend', (e) => {
+            if (isDragging) {
+                isDragging = false;
+                lightboxImg.classList.remove('dragging');
+            }
+        });
 
         // Function triggered when the user clicks the entry landing screen
         function enterWebsite() {
