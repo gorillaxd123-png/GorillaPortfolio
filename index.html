@@ -92,29 +92,6 @@
             top: -5vh;
         }
 
-        /* Ambient White Roses Animation at the Bottom Field */
-        @keyframes ambientRoseField {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 0.4;
-            }
-            50% {
-                transform: translateY(-10px) scale(1.05);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(0) scale(1);
-                opacity: 0.4;
-            }
-        }
-
-        .rose-field-item {
-            display: inline-block;
-            color: rgba(255, 255, 255, 0.85);
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
-            animation: ambientRoseField 4s ease-in-out infinite;
-        }
-
         /* Custom glow effect */
         .glow-glow {
             text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
@@ -343,24 +320,6 @@
                         </div>
                     </div>
                     <span id="copy-toast" class="text-xs text-purple-400 font-medium opacity-0 transition-opacity duration-300">CLICK TO COPY</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- WHITE ROSES END OF PAGE FRAMED SECTION -->
-        <div class="p-6 border-t border-zinc-900/60 bg-zinc-950/40">
-            <div class="border-2 border-dashed border-zinc-700/50 p-6 rounded-xl relative overflow-hidden bg-zinc-900/20 text-center">
-                <!-- A field array of styled animated white roses -->
-                <div class="flex justify-center items-center gap-8 py-3 text-2xl overflow-x-auto select-none">
-                    <div class="rose-field-item" style="animation-delay: 0s;"><i class="fa-solid fa-rose"></i></div>
-                    <div class="rose-field-item" style="animation-delay: 0.5s; font-size: 1.5rem;"><i class="fa-solid fa-rose"></i></div>
-                    <div class="rose-field-item" style="animation-delay: 1s;"><i class="fa-solid fa-rose"></i></div>
-                    <div class="rose-field-item" style="animation-delay: 0.2s; font-size: 1.7rem;"><i class="fa-solid fa-rose"></i></div>
-                    <div class="rose-field-item" style="animation-delay: 1.5s;"><i class="fa-solid fa-rose"></i></div>
-                    <div class="rose-field-item" style="animation-delay: 0.8s; font-size: 1.4rem;"><i class="fa-solid fa-rose"></i></div>
-                    <div class="rose-field-item" style="animation-delay: 2.3s;"><i class="fa-solid fa-rose"></i></div>
-                    <div class="rose-field-item" style="animation-delay: 1.2s; font-size: 1.6rem;"><i class="fa-solid fa-rose"></i></div>
-                    <div class="rose-field-item" style="animation-delay: 0.4s;"><i class="fa-solid fa-rose"></i></div>
                 </div>
             </div>
         </div>
