@@ -153,6 +153,62 @@
         .dragging {
             transition: none !important;
         }
+
+        /* Hover Shine Effect for Thumbnail Cards */
+        .thumbnail-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-25deg);
+            pointer-events: none;
+            transition: none;
+        }
+        .thumbnail-shine:hover::after {
+            left: 150%;
+            transition: left 0.75s ease-in-out;
+        }
+
+        /* Branding Text Shine & 10s Loop Configuration */
+        @keyframes textShineAnimation {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .branding-text-shine {
+            background: linear-gradient(
+                90deg,
+                #a1a1aa 0%,
+                #a1a1aa 35%,
+                #ffffff 50%,
+                #a1a1aa 65%,
+                #a1a1aa 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        /* Trigger immediately on cursor hover */
+        .branding-text-shine:hover {
+            animation: textShineAnimation 1.2s linear infinite;
+        }
+
+        /* Idle 10-second recurring animation wrapper */
+        .shine-idle-loop {
+            animation: textShineAnimation 1.5s ease-in-out infinite;
+            animation-delay: 0s;
+        }
     </style>
 </head>
 <body class="grid-bg min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 relative">
@@ -249,7 +305,7 @@
             </p>
             <div class="flex flex-col items-center gap-8 w-full">
                 <!-- Thumbnail Card 1 -->
-                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer" onclick="openLightbox(this)">
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer thumbnail-shine" onclick="openLightbox(this)">
                     <img src="https://media.discordapp.net/attachments/1503422943512891470/1528273595112095804/Watermark_2.png?ex=6a5db333&is=6a5c61b3&hm=c5ad385d9478d510a2fffbf8ca24aff3b50e9fe5e8493a53ee120be11e6f90e6&=&format=webp&quality=lossless&width=1536&height=864" 
                          alt="Thumbnail Work 1" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -260,7 +316,7 @@
                 </div>
 
                 <!-- Thumbnail Card 2 -->
-                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer" onclick="openLightbox(this)">
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer thumbnail-shine" onclick="openLightbox(this)">
                     <img src="https://media.discordapp.net/attachments/1503422943512891470/1528084685777932398/WATERMARK_1.png?ex=6a5dac03&is=6a5c5a83&hm=430ab14a454d8484c99eae6d7534577ef88255f4e087b6315aaa5ae899d0aba4&=&format=webp&quality=lossless&width=1535&height=863" 
                          alt="Thumbnail Work 2" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -271,7 +327,7 @@
                 </div>
 
                 <!-- Thumbnail Card 3 -->
-                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer" onclick="openLightbox(this)">
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer thumbnail-shine" onclick="openLightbox(this)">
                     <img src="https://media.discordapp.net/attachments/1503422943512891470/1528291540282114128/WATERMARK_3.png?ex=6a5dc3e9&is=6a5c7269&hm=3408c8129b8db4378bbab37400b8231edcf0a0ed972a78b9407022db0a8dc240&=&format=webp&quality=lossless&width=1536&height=864" 
                          alt="Thumbnail Work 3" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -282,7 +338,7 @@
                 </div>
 
                 <!-- Thumbnail Card 4 -->
-                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer" onclick="openLightbox(this)">
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer thumbnail-shine" onclick="openLightbox(this)">
                     <img src="https://media.discordapp.net/attachments/1503422943512891470/1528350160881582140/Watermark_4.png?ex=6a5dfa81&is=6a5ca901&hm=9fb76f62bd6a70456ecf654607b71020bc66d0505d8af332afceab5682e3aa39&=&format=webp&quality=lossless&width=1536&height=864" 
                          alt="Thumbnail Work 4" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -293,7 +349,7 @@
                 </div>
 
                 <!-- Thumbnail Card 5 -->
-                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer" onclick="openLightbox(this)">
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer thumbnail-shine" onclick="openLightbox(this)">
                     <img src="https://media.discordapp.net/attachments/1503422943512891470/1528367646498750585/WATERMARK_5.png?ex=6a5e0aca&is=6a5cb94a&hm=82b418875200bab5e0f6e1cbf82fad838ae2e25190bd08686076b53b802ff510&=&format=webp&quality=lossless&width=825&height=464" 
                          alt="Thumbnail Work 5" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -304,7 +360,7 @@
                 </div>
 
                 <!-- Thumbnail Card 6 -->
-                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer" onclick="openLightbox(this)">
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer thumbnail-shine" onclick="openLightbox(this)">
                     <img src="https://media.discordapp.net/attachments/1503422943512891470/1528373150520442991/Watermark_6.png?ex=6a5e0fea&is=6a5cbe6a&hm=0480d3251d905bbe2d7445bc452ce885a9b67949c27b4d7e8fde060379de2d4a&=&format=webp&quality=lossless&width=825&height=464" 
                          alt="Thumbnail Work 6" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -315,7 +371,7 @@
                 </div>
 
                 <!-- Thumbnail Card 7 -->
-                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer" onclick="openLightbox(this)">
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 hover-lift aspect-video w-full cursor-pointer thumbnail-shine" onclick="openLightbox(this)">
                     <img src="https://media.discordapp.net/attachments/1503422943512891470/1528391338805035079/WATERMARK_7.png?ex=6a5e20db&is=6a5ccf5b&hm=2af74991ed1815f01d0dd44bf52e0fdf8992fbfe3196e283f36a595372efb1c4&=&format=webp&quality=lossless&width=825&height=464" 
                          alt="Thumbnail Work 7" 
                          class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -323,6 +379,17 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                         <span class="text-sm font-semibold text-white">Project Concept #7</span>
                     </div>
+                </div>
+            </div>
+
+            <!-- GORILLA PRODUCTIONS BRANDING SECTION -->
+            <div class="w-full flex justify-center mt-12 mb-4">
+                <div class="relative inline-block select-none cursor-default group">
+                    <span id="branding-logo" class="branding-text-shine font-medium tracking-widest text-xs uppercase">
+                        Gorilla Productions
+                    </span>
+                    <!-- White Leaf absolute pinned to bottom-right of ending 's' character -->
+                    <i class="fa-solid fa-leaf text-white text-[9px] absolute -right-3.5 bottom-0.5 opacity-90 transition-transform duration-300 group-hover:scale-110"></i>
                 </div>
             </div>
         </div>
@@ -667,6 +734,19 @@
             const toast = document.getElementById('copy-toast');
             if(toast.textContent !== "COPIED!") toast.style.opacity = "0";
         });
+
+        // 10-Second Idle Shine Loop for Branding Text
+        const brandingLogo = document.getElementById('branding-logo');
+        setInterval(() => {
+            // Only fire the automated idle sweep if the user isn't hovering over it manually
+            if (!brandingLogo.matches(':hover')) {
+                brandingLogo.classList.add('shine-idle-loop');
+                // Remove the animation rule smoothly right after completion so it stops until next loop
+                setTimeout(() => {
+                    brandingLogo.classList.remove('shine-idle-loop');
+                }, 1500);
+            }
+        }, 10000);
     </script>
 </body>
 </html>
