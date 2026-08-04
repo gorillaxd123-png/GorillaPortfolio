@@ -532,29 +532,34 @@
     </main>
 
     <!-- SLIDING BOTTOM-RIGHT AD WIDGET -->
-    <div id="sliding-ad" class="fixed bottom-4 right-4 z-50 w-72 sm:w-80 glass-card rounded-xl p-3 border border-purple-500/30 shadow-2xl ad-hidden">
+    <!-- Increased width from w-80 to w-96; Increased padding -->
+    <div id="sliding-ad" class="fixed bottom-6 right-6 z-50 w-80 sm:w-[26rem] glass-card rounded-2xl p-4 border border-purple-500/40 shadow-2xl ad-hidden">
         <!-- Close button -->
-        <button onclick="closeAd()" class="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-700 text-xs flex items-center justify-center shadow transition-colors z-10">
+        <button onclick="closeAd()" class="absolute -top-2.5 -left-2.5 w-7 h-7 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-700 text-xs flex items-center justify-center shadow transition-colors z-10">
             <i class="fa-solid fa-xmark"></i>
         </button>
         
-        <div class="flex items-center gap-3">
-            <div class="relative w-24 h-16 rounded-lg overflow-hidden shrink-0 bg-zinc-900 border border-zinc-800">
+        <div class="flex items-center gap-4">
+            <!-- Increased thumbnail size -->
+            <div class="relative w-32 h-20 rounded-xl overflow-hidden shrink-0 bg-zinc-900 border border-zinc-800">
                 <img src="https://img.youtube.com/vi/RusmdblgEt4/maxresdefault.jpg" alt="Ad Thumbnail" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <i class="fa-solid fa-play text-xs text-white"></i>
+                    <i class="fa-solid fa-play text-sm text-white"></i>
                 </div>
             </div>
             
             <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-1.5 mb-0.5">
-                    <span class="bg-purple-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded tracking-wider">AD</span>
-                    <span class="text-[11px] font-bold text-purple-300 tracking-wide uppercase">CHECK THIS OUT</span>
+                <div class="flex items-center gap-2 mb-1">
+                    <!-- Sizing increased for badge and text -->
+                    <span class="bg-purple-600 text-white text-[10px] font-black px-2 py-0.5 rounded tracking-wider">AD</span>
+                    <span class="text-xs font-bold text-purple-300 tracking-wide uppercase">CHECK THIS OUT</span>
                 </div>
-                <p class="text-xs text-zinc-200 font-semibold truncate">Watch Highlight Video</p>
-                <a href="https://youtu.be/RusmdblgEt4?si=AcHfJabIswtf7NS_" target="_blank" class="inline-flex items-center gap-1 text-[11px] text-purple-400 hover:text-purple-300 font-bold mt-1 group">
+                <!-- Title font size increased -->
+                <p class="text-sm text-zinc-200 font-semibold truncate">Watch Highlight Video</p>
+                <!-- Link font size increased -->
+                <a href="https://youtu.be/RusmdblgEt4?si=AcHfJabIswtf7NS_" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-purple-400 hover:text-purple-300 font-bold mt-1.5 group">
                     <span>Watch Now</span>
-                    <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-0.5 transition-transform"></i>
+                    <i class="fa-solid fa-arrow-right text-[11px] group-hover:translate-x-0.5 transition-transform"></i>
                 </a>
             </div>
         </div>
