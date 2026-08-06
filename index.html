@@ -217,20 +217,6 @@
             animation-delay: 0s;
         }
 
-        /* Bottom-Right Sliding Ad Widget */
-        #sliding-ad {
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
-        }
-        #sliding-ad.ad-hidden {
-            transform: translateY(120%) translateX(0);
-            opacity: 0;
-            pointer-events: none;
-        }
-        #sliding-ad.ad-visible {
-            transform: translateY(0) translateX(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
     </style>
 </head>
 <body class="grid-bg min-h-screen flex flex-col items-center justify-start p-4 sm:p-8 relative">
@@ -447,6 +433,20 @@
                         </span>
                     </div>
                 </a>
+
+                <!-- New closed video project -->
+                <div class="group relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 aspect-video w-full">
+                    <video class="w-full h-full object-cover" controls preload="metadata">
+                        <source src="https://cdn.discordapp.com/attachments/1508070733169954890/1529033726502244522/0510.mp4?ex=6a758f20&is=6a743da0&hm=0023c2e4257d3f41320a92ac233a7289b2dfde252cdfb95531e075461ffd1ee5&" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-4 pointer-events-none">
+                        <div class="flex items-center gap-1.5 mb-0.5">
+                            <span class="bg-zinc-700 text-zinc-300 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded shadow-md">PROJECT CLOSED</span>
+                        </div>
+                        <span class="text-base font-bold text-white">Gorilla Productions Biggest Project</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -530,40 +530,6 @@
             </div>
         </div>
     </main>
-
-    <!-- SLIDING BOTTOM-RIGHT AD WIDGET -->
-    <!-- Increased width from w-80 to w-96; Increased padding -->
-    <div id="sliding-ad" class="fixed bottom-6 right-6 z-50 w-80 sm:w-[26rem] glass-card rounded-2xl p-4 border border-purple-500/40 shadow-2xl ad-hidden">
-        <!-- Close button -->
-        <button onclick="closeAd()" class="absolute -top-2.5 -left-2.5 w-7 h-7 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-700 text-xs flex items-center justify-center shadow transition-colors z-10">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        
-        <div class="flex items-center gap-4">
-            <!-- Increased thumbnail size -->
-            <div class="relative w-32 h-20 rounded-xl overflow-hidden shrink-0 bg-zinc-900 border border-zinc-800">
-                <img src="https://img.youtube.com/vi/RusmdblgEt4/maxresdefault.jpg" alt="Ad Thumbnail" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <i class="fa-solid fa-play text-sm text-white"></i>
-                </div>
-            </div>
-            
-            <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-1">
-                    <!-- Sizing increased for badge and text -->
-                    <span class="bg-purple-600 text-white text-[10px] font-black px-2 py-0.5 rounded tracking-wider">AD</span>
-                    <span class="text-xs font-bold text-purple-300 tracking-wide uppercase">CHECK THIS OUT</span>
-                </div>
-                <!-- Title font size increased -->
-                <p class="text-sm text-zinc-200 font-semibold truncate">Watch Highlight Video</p>
-                <!-- Link font size increased -->
-                <a href="https://youtu.be/RusmdblgEt4?si=AcHfJabIswtf7NS_" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-purple-400 hover:text-purple-300 font-bold mt-1.5 group">
-                    <span>Watch Now</span>
-                    <i class="fa-solid fa-arrow-right text-[11px] group-hover:translate-x-0.5 transition-transform"></i>
-                </a>
-            </div>
-        </div>
-    </div>
 
     <!-- FULLSCREEN LIGHTBOX MODAL WITH ZOOM & PAN MECHANICS -->
     <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[10000] opacity-0 invisible flex items-center justify-center p-4 select-none overflow-hidden" onclick="closeLightbox(event)">
@@ -862,27 +828,6 @@
             }
         }, 10000);
 
-        /* --- SLIDING BOTTOM-RIGHT AD LOGIC --- */
-        let adDismissed = false;
-        const slidingAd = document.getElementById('sliding-ad');
-
-        window.addEventListener('scroll', () => {
-            if (adDismissed) return;
-            // Shows ad when scrolled down more than 200px
-            if (window.scrollY > 200) {
-                slidingAd.classList.remove('ad-hidden');
-                slidingAd.classList.add('ad-visible');
-            } else {
-                slidingAd.classList.remove('ad-visible');
-                slidingAd.classList.add('ad-hidden');
-            }
-        });
-
-        function closeAd() {
-            adDismissed = true;
-            slidingAd.classList.remove('ad-visible');
-            slidingAd.classList.add('ad-hidden');
-        }
     </script>
 </body>
 </html>
